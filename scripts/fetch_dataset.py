@@ -14,7 +14,7 @@ async def main() -> None:
     books_per_epoch = await fetch_prose(epochs=epochs)
     for epoch in tqdm(epochs, desc="epochs"):
         books_in_epoch = books_per_epoch[epoch]
-        epoch_directory = Path("./data") / epoch
+        epoch_directory = Path("./data/books_txt") / epoch
         epoch_directory.mkdir(parents=True, exist_ok=True)
         saved_books = len(list(epoch_directory.glob("*.txt")))
 
