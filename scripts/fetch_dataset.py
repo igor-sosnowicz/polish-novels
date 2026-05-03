@@ -1,12 +1,16 @@
 """Script for fetching a dataset made of plain-text books."""
+from imports_setup import setup_project_imports
 
 import asyncio
 from pathlib import Path
-
 from tqdm import tqdm
 
+setup_project_imports()
+from src.config import Config, get_config
 from src.api import fetch_book, fetch_epochs, fetch_prose, to_filename
-from src.configuration import MAX_BOOKS_PER_EPOCH
+
+
+config: Config = get_config()
 
 
 async def main() -> None:
@@ -18,11 +22,11 @@ async def main() -> None:
         epoch_directory.mkdir(parents=True, exist_ok=True)
         saved_books = len(list(epoch_directory.glob("*.txt")))
 
-        if saved_books >= MAX_BOOKS_PER_EPOCH:
+        if saved_books >= config.max_books_per_epoch:
             continue
 
         for book_href in tqdm(books_in_epoch, desc=f"{epoch} books", leave=False):
-            if saved_books >= MAX_BOOKS_PER_EPOCH:
+            if saved_books >= config.max_books_per_epoch:
                 break
 
             filepath = epoch_directory / to_filename(book_href)
