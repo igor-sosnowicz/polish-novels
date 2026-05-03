@@ -6,7 +6,7 @@ from diskcache import Cache
 from loguru import logger
 from typing import cast
 
-from src.configuration import MIN_BOOK_LENGTH
+from novels_analysis.config.configuration import MIN_BOOK_LENGTH
 
 cache = Cache(".cache")
 Book = dict[str, str]

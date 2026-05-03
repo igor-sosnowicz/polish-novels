@@ -5,8 +5,8 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src.api import fetch_book, fetch_epochs, fetch_prose, to_filename
-from src.configuration import MAX_BOOKS_PER_EPOCH
+from novels_analysis.fetch.api import fetch_book, fetch_epochs, fetch_prose, to_filename
+from novels_analysis.config.configuration import MAX_BOOKS_PER_EPOCH, BOOKS_DIR
 
 
 async def main() -> None:
@@ -14,7 +14,7 @@ async def main() -> None:
     books_per_epoch = await fetch_prose(epochs=epochs)
     for epoch in tqdm(epochs, desc="epochs"):
         books_in_epoch = books_per_epoch[epoch]
-        epoch_directory = Path("./data") / epoch
+        epoch_directory = BOOKS_DIR / epoch
         epoch_directory.mkdir(parents=True, exist_ok=True)
         saved_books = len(list(epoch_directory.glob("*.txt")))
 
@@ -31,7 +31,7 @@ async def main() -> None:
 
             book_txt = await fetch_book(book_href)
             if book_txt:
-                filepath.write_text(book_txt)
+                filepath.write_text(book_txt, encoding="utf-8")
                 saved_books += 1
 
 

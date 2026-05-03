@@ -17,3 +17,5 @@ data/*
 
 # Personal TODOs
 todo.md
+
+.env
