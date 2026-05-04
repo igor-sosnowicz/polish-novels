@@ -22,7 +22,7 @@ def main() -> None:
 
     # Interactions to adjacency list convertion.
     graph_converter = GraphConverter()
-    output_directory = Path("./data/graphs/")
+    output_directory = config.graphs_directory
 
     for directory in config.interactions_directory.iterdir():
         filepath = directory / "interactions.json"

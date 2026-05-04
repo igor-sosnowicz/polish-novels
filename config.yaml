@@ -36,3 +36,33 @@ ollama_options:
   top_p: 0.5
 
 interactions_directory: ./data/book_interactions_data
+graphs_directory: ./data/graphs/
+notebooks_directory: ./notebooks
+epoch_mapping:
+  20_000_mil_podmorskiej_zeglugi: pozytywizm
+  alejchem_z_jarmarku: modernizm
+  aleksander_dumas_trzej_muszkieterowie_tom_2: romantyzm
+  amicis_serce: modernizm
+  andersen_tylko_grajek: romantyzm
+  balzac_komedia_ludzka_jaszczur: romantyzm
+  balzac_komedia_ludzka_stracone_zludzenia_wielki_czlowiek_z_prowincji: romantyzm
+  berent_prochno: mloda-polska-modernizm
+  bez_dogmatu: pozytywizm
+  bronte_dziwne_losy_jane_eyre: romantyzm
+  brzozowski_plomienie: mloda-polska-modernizm
+  chata_za_wsia: pozytywizm
+  cnotliwi: barok
+  conrad_nostromo: modernizm
+  darwin_o_powstawaniu_gatunkow: pozytywizm
+  don_kichot_z_la_manchy: barok
+  gargantua_i_pantagruel: renesans
+  o_poprawie_rzeczypospolitej: renesans
+  pamietniki: barok
+  pascal_mysli: barok
+  potocki_transakcja_wojny_chocimskiej: barok
+  proby_ksiega_druga: renesans
+  proby_ksiega_pierwsza: renesans
+  proby_ksiega_trzecia: renesans
+  prowincjalki: barok
+atagonist_treshold: -0.5
+protagonist_threshold: 0.5
