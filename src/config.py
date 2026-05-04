@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pathlib import Path
 
 import yaml
 from pydantic import BaseModel
@@ -13,6 +14,7 @@ class Config(BaseModel):
     system_prompt: str
 
     ollama_options: dict[str, int | float]
+    interactions_directory: Path
 
 
 @lru_cache(maxsize=1)

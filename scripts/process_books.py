@@ -2,6 +2,7 @@ import asyncio
 from pathlib import Path
 
 from imports_setup import setup_project_imports
+
 setup_project_imports()
 
 from src.processing import LLMProcessor
@@ -26,11 +27,11 @@ async def main() -> None:
     try:
         for i, book_path in enumerate(book_resources, start=1):
             book_name = book_path.stem  # Skip extension
-            
-            print(f"\n{'='*50}")
+
+            print(f"\n{'=' * 50}")
             print(f"[{i}/{len(book_resources)}] Book: {book_name}")
             print(f"Path: {book_path}")
-            print(f"{'='*50}")
+            print(f"{'=' * 50}")
 
             book_output_dir = output_dir / book_name
             book_output_dir.mkdir(parents=True, exist_ok=True)
@@ -46,17 +47,20 @@ async def main() -> None:
 
                 with open(output_file, "w", encoding="utf-8") as f:
                     f.write(interactions.model_dump_json(indent=4))
-                    
+
                 print(f"\n-> Completed successfully! Relations saved in: {output_file}")
 
             except Exception as e:
-                print(f"\n[CRITICAL ERROR] An error occurred while processing the book '{book_name}': {e}")
+                print(
+                    f"\n[CRITICAL ERROR] An error occurred while processing the book '{book_name}': {e}"
+                )
     except KeyboardInterrupt:
         print("\nManual interruption (Ctrl+C).")
     except Exception as e:
         print(f"\n[Critical Error] {e}")
     finally:
         await llm_processor.unload_model()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

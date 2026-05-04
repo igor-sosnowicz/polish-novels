@@ -1,4 +1,5 @@
 """Script for fetching a dataset made of plain-text books."""
+
 from imports_setup import setup_project_imports
 
 import asyncio
@@ -6,6 +7,7 @@ from pathlib import Path
 from tqdm import tqdm
 
 setup_project_imports()
+
 from src.config import Config, get_config
 from src.api import fetch_book, fetch_epochs, fetch_prose, to_filename
 

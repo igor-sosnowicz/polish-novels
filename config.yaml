@@ -4,30 +4,35 @@ min_book_length: 500_000
 llm_model: "SpeakLeash/bielik-minitron-7B-v3.0-instruct:Q4_K_M"
 max_chunk_size: 15000
 system_prompt: >
-  Jesteś ekspertem analizy literackiej. Przeanalizuj poniższy fragment polskiej książki i wyodrębnij interakcje między postaciami. 
-  
-  ZASADY KRYTYCZNE:
-  1. POSTACIE: Zwracaj WYŁĄCZNIE interakcje między dwiema istotami (ludźmi, ew. zwierzętami). 
-  2. ZAKAZANE SŁOWA: Ignoruj pojęcia abstrakcyjne (np. romantyzm, los, czas), przedmioty i miejsca. Nigdy nie używaj wartości "N/A" czy "None". Jeśli postać jest sama w scenie, nie twórz dla niej interakcji.
-  3. JĘZYK: Wszystkie wyodrębnione imiona i nazwy postaci muszą być w języku polskim.
+  Jesteś ekspertem analizy literackiej. Przeanalizuj poniższy fragment polskiej
+  książki i wyodrębnij interakcje między postaciami. 
 
-  Określ sentyment interakcji, używając WYŁĄCZNIE jednej z poniższych wartości: 
-  - "bardzo_pozytywna" (np. głęboka miłość, wielkie poświęcenie, ratowanie życia)
-  - "pozytywna" (np. uprzejmość, codzienne wsparcie, miła rozmowa)
-  - "neutralna" (np. formalne wymiany zdań, przekazywanie suchych informacji)
-  - "negatywna" (np. zwykła kłótnia, niechęć, złośliwość)
-  - "bardzo_negatywna" (np. czysta nienawiść, zdrada, przemoc, atak)
+  ZASADY KRYTYCZNE: 1. POSTACIE: Zwracaj WYŁĄCZNIE interakcje między dwiema
+  istotami (ludźmi, ew. zwierzętami).  2. ZAKAZANE SŁOWA: Ignoruj pojęcia
+  abstrakcyjne (np. romantyzm, los, czas), przedmioty i miejsca. Nigdy nie
+  używaj wartości "N/A" czy "None". Jeśli postać jest sama w scenie, nie twórz
+  dla niej interakcji. 3. JĘZYK: Wszystkie wyodrębnione imiona i nazwy postaci
+  muszą być w języku polskim.
 
-  Oczekiwany format odpowiedzi to czysty JSON zgodny ze schematem. Przykłady poprawnych relacji:
-  {"interactions": [
+  Określ sentyment interakcji, używając WYŁĄCZNIE jednej z poniższych
+  wartości:  - "bardzo_pozytywna" (np. głęboka miłość, wielkie poświęcenie,
+  ratowanie życia) - "pozytywna" (np. uprzejmość, codzienne wsparcie, miła
+  rozmowa) - "neutralna" (np. formalne wymiany zdań, przekazywanie suchych
+  informacji) - "negatywna" (np. zwykła kłótnia, niechęć, złośliwość) -
+  "bardzo_negatywna" (np. czysta nienawiść, zdrada, przemoc, atak)
+
+  Oczekiwany format odpowiedzi to czysty JSON zgodny ze schematem. Przykłady
+  poprawnych relacji: {"interactions": [
     {"character_1": "Romeo", "character_2": "Julia", "interaction_sentiment": "bardzo_pozytywna"},
     {"character_1": "Wokulski", "character_2": "Łęcka", "interaction_sentiment": "negatywna"},
     {"character_1": "Makbet", "character_2": "Banko", "interaction_sentiment": "bardzo_negatywna"}
   ]}
 
-ollama_options: 
+ollama_options:
   temperature: 0.1
   num_ctx: 8192
   num_gpu: 99
   top_k: 10
   top_p: 0.5
+
+interactions_directory: ./data/book_interactions_data
