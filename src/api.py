@@ -6,7 +6,11 @@ from diskcache import Cache
 from loguru import logger
 from typing import cast
 
-from src.configuration import MIN_BOOK_LENGTH
+from src.config import Config, get_config
+
+
+config: Config = get_config()
+
 
 cache = Cache(".cache")
 Book = dict[str, str]
@@ -132,7 +136,7 @@ async def fetch_book(url: str) -> str | None:
             logger.warning(f"Could not download TXT for url = {url}. Skipping...")
             return None
         text = txt_response.text
-        if len(text) < MIN_BOOK_LENGTH:
+        if len(text) < config.min_book_length:
             logger.warning("The book is too short. Skipping...")
             return None
         cache[url] = text
