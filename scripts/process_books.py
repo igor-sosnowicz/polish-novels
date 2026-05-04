@@ -51,7 +51,6 @@ async def main() -> None:
 
             except Exception as e:
                 print(f"\n[CRITICAL ERROR] An error occurred while processing the book '{book_name}': {e}")
-                # You can add error logging to a file here if you want
     except KeyboardInterrupt:
         print("\nManual interruption (Ctrl+C).")
     except Exception as e:

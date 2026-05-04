@@ -104,9 +104,9 @@ class LLMProcessor:
                 return InteractionList.model_validate_json(json_response)
                 
             except ValidationError as e:
-                print(f"\nBłąd walidacji danych z LLM (próba {attempt}/{max_attempts}): {e}")
+                print(f"\nValidation Error (chunk {attempt}/{max_attempts}): {e}")
             except Exception as e:
-                print(f"\nChunk processing error (próba {attempt}/{max_attempts}): {e}")
+                print(f"\nChunk processing error (chunk {attempt}/{max_attempts}): {e}")
             
             if attempt < max_attempts: 
                 await asyncio.sleep(1)

@@ -11,7 +11,6 @@ from src.config import Config, get_config
 
 config: Config = get_config()
 
-MIN_BOOK_LENGTH = config.min_book_length
 
 cache = Cache(".cache")
 Book = dict[str, str]
@@ -137,7 +136,7 @@ async def fetch_book(url: str) -> str | None:
             logger.warning(f"Could not download TXT for url = {url}. Skipping...")
             return None
         text = txt_response.text
-        if len(text) < MIN_BOOK_LENGTH:
+        if len(text) < config.min_book_length:
             logger.warning("The book is too short. Skipping...")
             return None
         cache[url] = text
