@@ -1,7 +1,8 @@
 from functools import lru_cache
+from pathlib import Path
 
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Config(BaseModel):
@@ -13,6 +14,15 @@ class Config(BaseModel):
     system_prompt: str
 
     ollama_options: dict[str, int | float]
+    interactions_directory: Path
+    graphs_directory: Path
+    notebooks_directory: Path
+    epoch_mapping: dict[str, str] = Field(default_factory=dict)
+
+    # A character with relationship score below this threshold is considered an atagonist.
+    atagonist_treshold: float
+    # A character with relationship score above this threshold is considered a protagonist.
+    protagonist_threshold: float
 
 
 @lru_cache(maxsize=1)

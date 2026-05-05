@@ -1,0 +1,326 @@
+diameter,max_degree,clustering_coefficient,betweeness,closeness,page_rank,average_relationship_score,protagonist_count,antagonist_count,book,epoch,graph_file,protagonists,antagonists
+11.0,67,0.0018457760980868322,0.0032156368250274184,0.1802935166087023,0.0016474464579901151,0.7629310344827587,293,140,cnotliwi,barok,cnotliwi.csv,"| Character | Score |
+| --- | ---: |
+| Wanda | 177.00 |
+| August | 160.00 |
+| Stasia | 100.00 |
+| Gaczycki | 64.00 |
+| Andzia | 38.00 |","| Character | Score |
+| --- | ---: |
+| Apolonja | -14.00 |
+| Banko | -14.00 |
+| Makbet | -12.00 |
+| Pani Apolonja | -8.00 |
+| pan Rokowicz | -7.00 |"
+12.0,472,0.0008146051290869338,0.001663268493895866,0.2638971429461909,0.0008196721311475429,0.4004461795872839,472,305,don_kichot_z_la_manchy,barok,don_kichot_z_la_manchy.csv,"| Character | Score |
+| --- | ---: |
+| Don Kichot | 310.00 |
+| Sancho | 144.00 |
+| Sancho Pansa | 83.00 |
+| Dorota | 74.00 |
+| Zoraida | 59.00 |","| Character | Score |
+| --- | ---: |
+| cyrulik | -16.00 |
+| ksiądz | -14.00 |
+| Biskajczyk | -11.00 |
+| gubernator | -9.00 |
+| wieśniak | -8.00 |"
+16.0,56,0.013705766413110212,0.002872267384389059,0.09635033164222864,0.0015503875968992248,-0.10013717421124829,203,202,pamietniki,barok,pamietniki.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 12.00 |
+| Julia | 12.00 |
+| narrator | 10.00 |
+| król | 10.00 |
+| Król JMości | 6.00 |","| Character | Score |
+| --- | ---: |
+| Szwedzi | -20.00 |
+| Moskal | -15.00 |
+| nieznany | -10.00 |
+| Turcy | -10.00 |
+| Chowański | -9.00 |"
+11.0,26,0.005319349103006398,0.002543702220375058,0.05213310633708872,0.0025,-0.037037037037037035,99,146,pascal_mysli,barok,pascal_mysli.csv,"| Character | Score |
+| --- | ---: |
+| Bóg | 23.00 |
+| Julia | 20.00 |
+| Romeo | 18.00 |
+| Jezus | 10.00 |
+| Jakub | 10.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -14.00 |
+| Banko | -14.00 |
+| faryzeusze | -9.00 |
+| Wokulski | -7.00 |
+| Łęcka | -7.00 |"
+10.0,34,0.012123290411442883,0.005011717108711378,0.10238383641290545,0.004405286343612336,-0.4066390041493776,69,87,potocki_transakcja_wojny_chocimskiej,barok,potocki_transakcja_wojny_chocimskiej.csv,"| Character | Score |
+| --- | ---: |
+| Jan | 9.00 |
+| Jan Lipski | 4.00 |
+| Lipski | 4.00 |
+| Rodzice Jana | 4.00 |
+| Potocki (ojciec Jana) | 4.00 |","| Character | Score |
+| --- | ---: |
+| Osman | -56.00 |
+| Turcy | -35.00 |
+| Kozacy | -19.00 |
+| Chodkiewicz | -9.00 |
+| Husseim | -8.00 |"
+11.0,42,0.001966615696332749,0.004428935413997736,0.11372792835694893,0.0029069767441860465,-0.6363636363636364,48,155,prowincjalki,barok,prowincjalki.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 10.00 |
+| Julia | 8.00 |
+| Dziewica | 6.00 |
+| Kościół | 4.00 |
+| Port-Royal | 2.00 |","| Character | Score |
+| --- | ---: |
+| ks. de Saint-Cyran | -52.00 |
+| ojcowie (jezuici) | -43.00 |
+| jezuici | -20.00 |
+| Arnauld | -17.00 |
+| Pascal | -13.00 |"
+9.0,72,0.0033155566669146774,0.003915128593932924,0.1822193575693007,0.002109704641350211,-0.0625,133,172,berent_prochno,mloda-polska-modernizm,berent_prochno.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 119.00 |
+| Julia | 115.00 |
+| narrator | 19.00 |
+| Właduś | 15.00 |
+| pies | 15.00 |","| Character | Score |
+| --- | ---: |
+| Müller | -42.00 |
+| Banko | -41.00 |
+| Makbet | -40.00 |
+| Jelsky | -38.00 |
+| ojciec | -28.00 |"
+13.0,103,0.0014298968263293885,0.002018676206298932,0.14220284039243558,0.0008058017727638999,-0.14460154241645246,319,479,brzozowski_plomienie,mloda-polska-modernizm,brzozowski_plomienie.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 153.00 |
+| Julia | 151.00 |
+| Ola | 28.00 |
+| Michał | 27.00 |
+| narrator | 24.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -72.00 |
+| Banko | -72.00 |
+| Wokulski | -46.00 |
+| Łęcka | -40.00 |
+| Wroński | -27.00 |"
+14.0,198,0.006358445034810709,0.0022286482286482277,0.17120401854302075,0.0009990009990009988,0.24642049736247174,418,241,alejchem_z_jarmarku,modernizm,alejchem_z_jarmarku.csv,"| Character | Score |
+| --- | ---: |
+| Szolem | 137.00 |
+| Szmulik | 27.00 |
+| Nachum Rabinowicz | 19.00 |
+| Eli | 18.00 |
+| Sirko | 12.00 |","| Character | Score |
+| --- | ---: |
+| macocha | -24.00 |
+| rebe | -10.00 |
+| stryj Pinie | -7.00 |
+| Fruma | -6.00 |
+| chłopcy | -6.00 |"
+11.0,66,0.0028279215139627033,0.00235313379880951,0.16641724074329195,0.0012048192771084338,1.063157894736842,488,114,amicis_serce,modernizm,amicis_serce.csv,"| Character | Score |
+| --- | ---: |
+| ojciec | 165.00 |
+| matka | 164.00 |
+| nauczyciel | 85.00 |
+| Garrone | 83.00 |
+| Henryk | 73.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -26.00 |
+| Banko | -26.00 |
+| Franti | -25.00 |
+| Wokulski | -11.00 |
+| Łęcka | -11.00 |"
+11.0,125,0.004741772987869918,0.0024570202882186064,0.21253990983320764,0.0011376564277588166,-0.01583710407239819,278,273,conrad_nostromo,modernizm,conrad_nostromo.csv,"| Character | Score |
+| --- | ---: |
+| Julia | 41.00 |
+| pani Gould | 39.00 |
+| Romeo | 25.00 |
+| Pani Gould | 24.00 |
+| Giovanni | 23.00 |","| Character | Score |
+| --- | ---: |
+| Sotillo | -71.00 |
+| Nostromo | -25.00 |
+| doktor | -21.00 |
+| Decoud | -18.00 |
+| Ramirez | -16.00 |"
+9.0,77,0.0019486001503018504,0.0031003510160838707,0.18831977263945499,0.0020618556701030933,0.2251655629139073,151,82,20_000_mil_podmorskiej_zeglugi,pozytywizm,20_000_mil_podmorskiej_zeglugi.csv,"| Character | Score |
+| --- | ---: |
+| Conseil | 80.00 |
+| narrator | 59.00 |
+| Ned | 37.00 |
+| Romeo | 25.00 |
+| Julia | 24.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -20.00 |
+| Banko | -19.00 |
+| Kanadyjczyk | -16.00 |
+| rekin | -12.00 |
+| Wokulski | -10.00 |"
+7.0,111,0.004112363276073636,0.003934636314429375,0.24474719884703905,0.0026881720430107525,1.0087719298245614,174,83,bez_dogmatu,pozytywizm,bez_dogmatu.csv,"| Character | Score |
+| --- | ---: |
+| Anielka | 457.00 |
+| narrator | 100.00 |
+| Narrator | 100.00 |
+| Klara | 47.00 |
+| Leon | 44.00 |","| Character | Score |
+| --- | ---: |
+| Kromicki | -72.00 |
+| Łęcka | -12.00 |
+| Chwastowski | -11.00 |
+| Makbet | -8.00 |
+| Banko | -8.00 |"
+9.0,128,0.004392265418535463,0.0027899712704380405,0.22569075522424797,0.0013698630136986301,0.14556962025316456,248,231,chata_za_wsia,pozytywizm,chata_za_wsia.csv,"| Character | Score |
+| --- | ---: |
+| Marysia | 199.00 |
+| matka | 43.00 |
+| Romeo | 34.00 |
+| Motruna | 30.00 |
+| Julia | 29.00 |","| Character | Score |
+| --- | ---: |
+| Tumry | -44.00 |
+| Lepiuk | -38.00 |
+| Aprasz | -35.00 |
+| Maxym | -17.00 |
+| stary | -16.00 |"
+9.0,12,0.013146557878168048,0.00014670852622149824,0.009452361887921373,0.0030959752321981426,-0.2701612903225806,46,88,darwin_o_powstawaniu_gatunkow,pozytywizm,darwin_o_powstawaniu_gatunkow.csv,"| Character | Score |
+| --- | ---: |
+| Autor | 3.00 |
+| ogrodnicy | 3.00 |
+| narrator | 3.00 |
+| author | 2.00 |
+| dr Hooker | 2.00 |","| Character | Score |
+| --- | ---: |
+| Lobelia fulgens | -8.00 |
+| F. sanguinea | -8.00 |
+| T. pratense | -7.00 |
+| myszy polne | -6.00 |
+| kury | -6.00 |"
+17.0,251,0.002383973909857045,0.0007599540146868476,0.10477666722301285,0.0005216484089723527,-0.06774040738986263,474,526,gargantua_i_pantagruel,renesans,gargantua_i_pantagruel.csv,"| Character | Score |
+| --- | ---: |
+| Pantagruel | 49.00 |
+| Panurg | 39.00 |
+| Romeo | 28.00 |
+| Gargantua | 25.00 |
+| Julia | 24.00 |","| Character | Score |
+| --- | ---: |
+| nieprzyjaciele | -32.00 |
+| Banko | -22.00 |
+| Wilkołak | -22.00 |
+| Makbet | -19.00 |
+| Żółcik | -18.00 |"
+6.0,7,0.007646361014009176,0.00011740736903898615,0.010575432625204688,0.005076142131979695,-0.2014388489208633,46,68,o_poprawie_rzeczypospolitej,renesans,o_poprawie_rzeczypospolitej.csv,"| Character | Score |
+| --- | ---: |
+| Chrystus | 7.00 |
+| dzieci | 7.00 |
+| Julia | 5.00 |
+| Romeo | 4.00 |
+| Cicero | 3.00 |","| Character | Score |
+| --- | ---: |
+| nieznany szlachcic | -5.00 |
+| raniony człowiek | -4.00 |
+| Cornelius Rufinus | -4.00 |
+| inni ludzie | -4.00 |
+| Makbet | -4.00 |"
+20.0,17,0.00528707971830528,0.0009728714792072305,0.01562771791165219,0.0011890606420927466,-0.043859649122807015,229,253,proby_ksiega_druga,renesans,proby_ksiega_druga.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 18.00 |
+| Julia | 18.00 |
+| Juliusz Cezar | 14.00 |
+| pies | 10.00 |
+| narrator | 9.00 |","| Character | Score |
+| --- | ---: |
+| Scytowie | -14.00 |
+| Makbet | -12.00 |
+| Banko | -12.00 |
+| Wokulski | -8.00 |
+| Łęcka | -8.00 |"
+15.0,37,0.004651572461351198,0.0004583552390286257,0.012943583104455422,0.0011876484560570072,-0.14883720930232558,174,272,proby_ksiega_pierwsza,renesans,proby_ksiega_pierwsza.csv,"| Character | Score |
+| --- | ---: |
+| Montaigne | 20.00 |
+| dzieci | 7.00 |
+| Sokrates | 7.00 |
+| Stefan de la Boêtie | 6.00 |
+| Henryk IV (król Nawarry) | 6.00 |","| Character | Score |
+| --- | ---: |
+| Psamenit | -10.00 |
+| Aleksander | -8.00 |
+| filozofowie | -8.00 |
+| kat | -6.00 |
+| Książę de Valentinois | -6.00 |"
+13.0,25,0.008546407094269022,0.0013759186426821942,0.029077325780348554,0.00234192037470726,-0.17563739376770537,98,150,proby_ksiega_trzecia,renesans,proby_ksiega_trzecia.csv,"| Character | Score |
+| --- | ---: |
+| Romeo | 10.00 |
+| Julia | 10.00 |
+| Narrator | 6.00 |
+| Epaminondas | 4.00 |
+| Sokrates | 4.00 |","| Character | Score |
+| --- | ---: |
+| najeźdźcy | -9.00 |
+| sędziowie | -9.00 |
+| Kazał | -8.00 |
+| Platon | -5.00 |
+| Arminiusz | -4.00 |"
+9.0,126,0.0022539565748436272,0.0027916748242509666,0.25141884725368896,0.0014684287812041115,0.16946160635481025,227,185,aleksander_dumas_trzej_muszkieterowie_tom_2,romantyzm,aleksander_dumas_trzej_muszkieterowie_tom_2.csv,"| Character | Score |
+| --- | ---: |
+| d'Artagnan | 176.00 |
+| Atos | 109.00 |
+| Aramis | 70.00 |
+| Julia | 61.00 |
+| Romeo | 46.00 |","| Character | Score |
+| --- | ---: |
+| Felton | -68.00 |
+| Buckingham | -53.00 |
+| Milady | -48.00 |
+| milady | -38.00 |
+| lord Winter | -22.00 |"
+8.0,146,0.0028477229058163,0.0020009820304283843,0.17763197374674777,0.0014970059880239528,0.4981684981684982,278,126,andersen_tylko_grajek,romantyzm,andersen_tylko_grajek.csv,"| Character | Score |
+| --- | ---: |
+| Krystian | 178.00 |
+| Naomi | 122.00 |
+| Marya | 55.00 |
+| Łucja | 32.00 |
+| Piotr Wik | 27.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -8.00 |
+| Banko | -8.00 |
+| Niels | -8.00 |
+| hrabina | -5.00 |
+| pan Patermann | -5.00 |"
+10.0,114,0.002795235072453722,0.00461397259303668,0.17718476653681786,0.0025125628140703514,0.4465811965811966,146,106,balzac_komedia_ludzka_jaszczur,romantyzm,balzac_komedia_ludzka_jaszczur.csv,"| Character | Score |
+| --- | ---: |
+| Paulina | 144.00 |
+| Rafael | 88.00 |
+| narrator | 37.00 |
+| Romeo | 20.00 |
+| Julia | 19.00 |","| Character | Score |
+| --- | ---: |
+| Akwilina | -11.00 |
+| młody człowiek | -9.00 |
+| Makbet | -8.00 |
+| Banko | -8.00 |
+| Eufrazja | -8.00 |"
+9.0,216,0.004932380032718009,0.0026506061526795775,0.23021502607042899,0.0017301038062283764,0.32505643340857787,207,125,balzac_komedia_ludzka_stracone_zludzenia_wielki_czlowiek_z_prowincji,romantyzm,balzac_komedia_ludzka_stracone_zludzenia_wielki_czlowiek_z_prowincji.csv,"| Character | Score |
+| --- | ---: |
+| Lucjan | 164.00 |
+| Koralia | 93.00 |
+| Stefan | 23.00 |
+| Camusot | 22.00 |
+| Floryna | 21.00 |","| Character | Score |
+| --- | ---: |
+| Vernou | -13.00 |
+| Matifat | -6.00 |
+| Ludwik XVIII | -5.00 |
+| baron du Châtelet | -4.00 |
+| Michał | -4.00 |"
+10.0,165,0.003997953207186458,0.002598832381135593,0.2241520714012838,0.0010718113612004287,0.5767634854771784,415,200,bronte_dziwne_losy_jane_eyre,romantyzm,bronte_dziwne_losy_jane_eyre.csv,"| Character | Score |
+| --- | ---: |
+| Jane | 205.00 |
+| narrator | 110.00 |
+| pan Rochester | 98.00 |
+| Adela | 88.00 |
+| Romeo | 86.00 |","| Character | Score |
+| --- | ---: |
+| Makbet | -32.00 |
+| Banko | -32.00 |
+| John Reed | -26.00 |
+| Łęcka | -16.00 |
+| Wokulski | -15.00 |"
