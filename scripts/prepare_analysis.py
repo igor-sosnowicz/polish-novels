@@ -7,6 +7,7 @@ from pathlib import Path
 from uuid import uuid4
 
 import pandas as pd
+from tqdm import tqdm
 
 from imports_setup import setup_project_imports
 
@@ -48,7 +49,9 @@ def _safe_name(name: str) -> str:
     return name.replace(" ", "_")
 
 
-def _metrics_to_row(book_name: str, epoch: str, metrics: GraphMetrics, graph_file: Path) -> dict[str, object]:
+def _metrics_to_row(
+    book_name: str, epoch: str, metrics: GraphMetrics, graph_file: Path
+) -> dict[str, object]:
     row = metrics.model_dump()
     row.update(
         {
@@ -82,7 +85,9 @@ def _markdown_table(headers: list[str], rows: list[list[object]]) -> str:
     return "\n".join([header_line, separator_line, *body_lines])
 
 
-def _notebook_cell(cell_type: str, language: str, source: list[str]) -> dict[str, object]:
+def _notebook_cell(
+    cell_type: str, language: str, source: list[str]
+) -> dict[str, object]:
     cell: dict[str, object] = {
         "cell_type": cell_type,
         "metadata": {
@@ -110,7 +115,9 @@ def _write_notebook(path: Path, cells: list[dict[str, object]]) -> None:
         json.dump(notebook, notebook_file, ensure_ascii=False, indent=2)
 
 
-def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path]], dict[str, Path], Path]:
+def run_analysis() -> tuple[
+    pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path]], dict[str, Path], Path
+]:
     config = get_config()
     graphs_directory = Path(config.graphs_directory)
     notebooks_directory = Path(config.notebooks_directory)
@@ -130,7 +137,7 @@ def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path
     epoch_to_books: dict[str, list[str]] = defaultdict(list)
     book_to_plots: dict[str, dict[str, Path]] = defaultdict(dict)
 
-    for graph_file in graph_files:
+    for graph_file in tqdm(graph_files, desc="books", unit="book"):
         frame = _validate_graph_frame(graph_file)
         book_name = graph_file.stem
         if book_name not in epoch_mapping:
@@ -138,7 +145,9 @@ def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path
 
         epoch = epoch_mapping[book_name]
         metrics = graph_analyser.calculate_metrics(frame)
-        protagonists = graph_analyser.find_protagonists(frame, min(5, max(1, len(frame))))
+        protagonists = graph_analyser.find_protagonists(
+            frame, min(5, max(1, len(frame)))
+        )
         antagonists = graph_analyser.find_antagonists(frame, min(5, max(1, len(frame))))
 
         rows.append(_metrics_to_row(book_name, epoch, metrics, graph_file))
@@ -147,14 +156,47 @@ def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path
         epoch_to_metrics[epoch].append(metrics)
         epoch_to_books[epoch].append(book_name)
 
-        book_to_plots[book_name]["degree_histogram"] = graph_analyser.create_degree_histogram(frame, filename=f"{_safe_name(book_name)}_degree_histogram.png")
-        book_to_plots[book_name]["degree"] = graph_analyser.visualise_graph(frame, parameter="degree", filename=f"{_safe_name(book_name)}_degree_graph.png")
-        book_to_plots[book_name]["page_rank"] = graph_analyser.visualise_graph(frame, parameter="page_rank", filename=f"{_safe_name(book_name)}_page_rank_graph.png")
-        book_to_plots[book_name]["betweeness"] = graph_analyser.visualise_graph(frame, parameter="betweeness", filename=f"{_safe_name(book_name)}_betweeness_graph.png")
-        book_to_plots[book_name]["closeness"] = graph_analyser.visualise_graph(frame, parameter="closeness", filename=f"{_safe_name(book_name)}_closeness_graph.png")
-        book_to_plots[book_name]["absolute_relationshipscore"] = graph_analyser.visualise_graph(frame, parameter="absolute_relationshipscore", filename=f"{_safe_name(book_name)}_absolute_relationshipscore_graph.png")
+        book_to_plots[book_name]["degree_histogram"] = (
+            graph_analyser.create_degree_histogram(
+                frame, filename=f"{_safe_name(book_name)}_degree_histogram.png"
+            )
+        )
+        book_to_plots[book_name]["degree"] = graph_analyser.visualise_graph(
+            frame,
+            parameter="degree",
+            filename=f"{_safe_name(book_name)}_degree_graph.png",
+        )
+        book_to_plots[book_name]["page_rank"] = graph_analyser.visualise_graph(
+            frame,
+            parameter="page_rank",
+            filename=f"{_safe_name(book_name)}_page_rank_graph.png",
+        )
+        book_to_plots[book_name]["betweeness"] = graph_analyser.visualise_graph(
+            frame,
+            parameter="betweeness",
+            filename=f"{_safe_name(book_name)}_betweeness_graph.png",
+        )
+        book_to_plots[book_name]["closeness"] = graph_analyser.visualise_graph(
+            frame,
+            parameter="closeness",
+            filename=f"{_safe_name(book_name)}_closeness_graph.png",
+        )
+        book_to_plots[book_name]["absolute_relationshipscore"] = (
+            graph_analyser.visualise_graph(
+                frame,
+                parameter="absolute_relationshipscore",
+                filename=f"{_safe_name(book_name)}_absolute_relationshipscore_graph.png",
+            )
+        )
+        book_to_plots[book_name]["pyvis_degree"] = graph_analyser.export_pyvis_graph(
+            frame,
+            parameter="degree",
+            filename=f"{_safe_name(book_name)}_degree_graph.html",
+        )
 
-    summary_df = pd.DataFrame(rows).sort_values(["epoch", "book"]).reset_index(drop=True)
+    summary_df = (
+        pd.DataFrame(rows).sort_values(["epoch", "book"]).reset_index(drop=True)
+    )
     summary_path = notebooks_directory / "graph_metrics_summary.csv"
     summary_df.to_csv(summary_path, index=False)
 
@@ -180,19 +222,49 @@ def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path
 
     epoch_representative_book: dict[str, str] = {}
     for epoch, group_df in summary_df.groupby("epoch"):
-        epoch_representative_book[epoch] = group_df.sort_values(["max_degree", "page_rank"], ascending=False).iloc[0]["book"]
+        epoch_representative_book[epoch] = group_df.sort_values(
+            ["max_degree", "page_rank"], ascending=False
+        ).iloc[0]["book"]
 
     pairwise_comparison_plots: dict[str, Path] = {}
-    for epoch_a, epoch_b in combinations(sorted(epoch_to_metrics), 2):
+    epoch_pairs = list(combinations(sorted(epoch_to_metrics), 2))
+    for epoch_a, epoch_b in tqdm(epoch_pairs, desc="epoch pairs", unit="pair"):
         pair_key = f"{epoch_a}__vs__{epoch_b}"
-        pairwise_comparison_plots[pair_key] = graph_analyser.compare_graph_groups(epoch_a, epoch_to_metrics[epoch_a], epoch_b, epoch_to_metrics[epoch_b])
+        pairwise_comparison_plots[pair_key] = graph_analyser.compare_graph_groups(
+            epoch_a, epoch_to_metrics[epoch_a], epoch_b, epoch_to_metrics[epoch_b]
+        )
 
     notebook_path = notebooks_directory / "graph_analysis.ipynb"
     cells: list[dict[str, object]] = []
 
     cells.append(_notebook_cell("markdown", "markdown", ["# Graph analysis report\n"]))
-    cells.append(_notebook_cell("markdown", "markdown", ["This notebook is generated from the graph CSV files in `data/graphs/`.\n", "\n", "It includes per-book metrics, per-epoch aggregation, pairwise comparisons, and representative plots generated by `GraphAnalyser`.\n"]))
-    cells.append(_notebook_cell("code", "python", ["from pathlib import Path\n", "import pandas as pd\n", "from IPython.display import display\n", "\n", "summary = pd.read_csv(Path('graph_metrics_summary.csv'))\n", "epoch_summary = pd.read_csv(Path('epoch_metrics_summary.csv'))\n", "display(summary)\n", "display(epoch_summary)\n"]))
+    cells.append(
+        _notebook_cell(
+            "markdown",
+            "markdown",
+            [
+                "This notebook is generated from the graph CSV files in `data/graphs/`.\n",
+                "\n",
+                "It includes per-book metrics, per-epoch aggregation, pairwise comparisons, and representative plots generated by `GraphAnalyser`.\n",
+            ],
+        )
+    )
+    cells.append(
+        _notebook_cell(
+            "code",
+            "python",
+            [
+                "from pathlib import Path\n",
+                "import pandas as pd\n",
+                "from IPython.display import display\n",
+                "\n",
+                "summary = pd.read_csv(Path('graph_metrics_summary.csv'))\n",
+                "epoch_summary = pd.read_csv(Path('epoch_metrics_summary.csv'))\n",
+                "display(summary)\n",
+                "display(epoch_summary)\n",
+            ],
+        )
+    )
 
     for epoch, books in sorted(epoch_to_books.items()):
         epoch_books_df = summary_df[summary_df["epoch"] == epoch].copy()
@@ -201,19 +273,87 @@ def run_analysis() -> tuple[pd.DataFrame, pd.DataFrame, dict[str, dict[str, Path
 
         cells.append(_notebook_cell("markdown", "markdown", [f"## Epoch: {epoch}\n"]))
         representative_plot_lines = [
-            f"{label}: `plots/{path.name}`" for label, path in representative_plots.items()
+            f"{label}: `plots/{path.name}`"
+            for label, path in representative_plots.items()
         ]
-        cells.append(_notebook_cell("markdown", "markdown", [f"**Representative book:** {representative_book}\n", "\n", "Books:\n", _markdown_list(books), "\n", "**Representative plots**\n", "\n", _markdown_list(representative_plot_lines), "\n", f"![{epoch} representative graph](plots/{representative_plots['page_rank'].name})\n"]))
-        cells.append(_notebook_cell("markdown", "markdown", ["### Per-book metrics\n", "\n", _markdown_table(["book", "diameter", "max_degree", "page_rank", "protagonist_count", "antagonist_count"], epoch_books_df[["book", "diameter", "max_degree", "page_rank", "protagonist_count", "antagonist_count"]].astype(str).values.tolist()), "\n"]))
+        cells.append(
+            _notebook_cell(
+                "markdown",
+                "markdown",
+                [
+                    f"**Representative book:** {representative_book}\n",
+                    "\n",
+                    "Books:\n",
+                    _markdown_list(books),
+                    "\n",
+                    "**Representative plots**\n",
+                    "\n",
+                    _markdown_list(representative_plot_lines),
+                    "\n",
+                    f"![{epoch} representative graph](plots/{representative_plots['page_rank'].name})\n",
+                ],
+            )
+        )
+        cells.append(
+            _notebook_cell(
+                "markdown",
+                "markdown",
+                [
+                    "### Per-book metrics\n",
+                    "\n",
+                    _markdown_table(
+                        [
+                            "book",
+                            "diameter",
+                            "max_degree",
+                            "page_rank",
+                            "protagonist_count",
+                            "antagonist_count",
+                        ],
+                        epoch_books_df[
+                            [
+                                "book",
+                                "diameter",
+                                "max_degree",
+                                "page_rank",
+                                "protagonist_count",
+                                "antagonist_count",
+                            ]
+                        ]
+                        .astype(str)
+                        .values.tolist(),
+                    ),
+                    "\n",
+                ],
+            )
+        )
 
-    cells.append(_notebook_cell("markdown", "markdown", ["## Pairwise epoch comparisons\n"]))
+    cells.append(
+        _notebook_cell("markdown", "markdown", ["## Pairwise epoch comparisons\n"])
+    )
     for comparison_name, plot_path in sorted(pairwise_comparison_plots.items()):
         epoch_a, epoch_b = comparison_name.split("__vs__", 1)
-        cells.append(_notebook_cell("markdown", "markdown", [f"### {epoch_a} vs {epoch_b}\n", "\n", f"![{comparison_name}]({plot_path.as_posix()})\n"]))
+        cells.append(
+            _notebook_cell(
+                "markdown",
+                "markdown",
+                [
+                    f"### {epoch_a} vs {epoch_b}\n",
+                    "\n",
+                    f"![{comparison_name}]({plot_path.as_posix()})\n",
+                ],
+            )
+        )
 
     _write_notebook(notebook_path, cells)
 
-    return summary_df, epoch_summary_df, book_to_plots, pairwise_comparison_plots, notebook_path
+    return (
+        summary_df,
+        epoch_summary_df,
+        book_to_plots,
+        pairwise_comparison_plots,
+        notebook_path,
+    )
 
 
 def run_sanity_checks() -> dict[str, object]:
@@ -241,7 +381,9 @@ def run_sanity_checks() -> dict[str, object]:
 
 
 def main() -> None:
-    summary_df, epoch_summary_df, book_to_plots, comparison_plots, notebook_path = run_analysis()
+    summary_df, epoch_summary_df, book_to_plots, comparison_plots, notebook_path = (
+        run_analysis()
+    )
 
     print("Analysis completed")
     print(f"Books analysed: {len(summary_df)}")

@@ -168,7 +168,7 @@ diameter,max_degree,clustering_coefficient,betweeness,closeness,page_rank,averag
 | Chwastowski | -11.00 |
 | Makbet | -8.00 |
 | Banko | -8.00 |"
-9.0,128,0.0043922654185354635,0.0027899712704380405,0.22569075522424797,0.0013698630136986301,0.14556962025316456,248,231,chata_za_wsia,pozytywizm,chata_za_wsia.csv,"| Character | Score |
+9.0,128,0.004392265418535463,0.0027899712704380405,0.22569075522424797,0.0013698630136986301,0.14556962025316456,248,231,chata_za_wsia,pozytywizm,chata_za_wsia.csv,"| Character | Score |
 | --- | ---: |
 | Marysia | 199.00 |
 | matka | 43.00 |
@@ -285,19 +285,19 @@ diameter,max_degree,clustering_coefficient,betweeness,closeness,page_rank,averag
 | Niels | -8.00 |
 | hrabina | -5.00 |
 | pan Patermann | -5.00 |"
-7.0,142,0.013288158412037556,0.004850125928958703,0.2614436071093602,0.0024875621890547263,0.0,0,0,balzac_komedia_ludzka_jaszczur,romantyzm,balzac_komedia_ludzka_jaszczur.csv,"| Character | Score |
+10.0,114,0.002795235072453722,0.00461397259303668,0.17718476653681786,0.0025125628140703514,0.4465811965811966,146,106,balzac_komedia_ludzka_jaszczur,romantyzm,balzac_komedia_ludzka_jaszczur.csv,"| Character | Score |
 | --- | ---: |
-| Honoré Balzac | 0.00 |
-| romanticism | 0.00 |
-| fantastic element | 0.00 |
-| realism | 0.00 |
-| German influences | 0.00 |","| Character | Score |
+| Paulina | 144.00 |
+| Rafael | 88.00 |
+| narrator | 37.00 |
+| Romeo | 20.00 |
+| Julia | 19.00 |","| Character | Score |
 | --- | ---: |
-| Honoré Balzac | 0.00 |
-| romanticism | 0.00 |
-| fantastic element | 0.00 |
-| realism | 0.00 |
-| German influences | 0.00 |"
+| Akwilina | -11.00 |
+| młody człowiek | -9.00 |
+| Makbet | -8.00 |
+| Banko | -8.00 |
+| Eufrazja | -8.00 |"
 9.0,216,0.004932380032718009,0.0026506061526795775,0.23021502607042899,0.0017301038062283764,0.32505643340857787,207,125,balzac_komedia_ludzka_stracone_zludzenia_wielki_czlowiek_z_prowincji,romantyzm,balzac_komedia_ludzka_stracone_zludzenia_wielki_czlowiek_z_prowincji.csv,"| Character | Score |
 | --- | ---: |
 | Lucjan | 164.00 |

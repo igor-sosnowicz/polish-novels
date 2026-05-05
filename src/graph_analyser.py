@@ -64,7 +64,8 @@ class GraphAnalyser:
             "degree",
             "absolute_relationshipscore",
             "absolute_relationship_score",
-        ] | None,
+        ]
+        | None,
     ) -> dict[str, float]:
         if parameter == "page_rank":
             return self._pagerank_scores(graph)
@@ -74,21 +75,80 @@ class GraphAnalyser:
             return nx.closeness_centrality(graph)
         if parameter in {"absolute_relationshipscore", "absolute_relationship_score"}:
             return {
-                node: sum(abs(d.get("weight", 0)) for _, _, d in graph.edges(node, data=True))
+                node: sum(
+                    abs(d.get("weight", 0)) for _, _, d in graph.edges(node, data=True)
+                )
                 for node in graph.nodes()
             }
         return dict(graph.degree())
 
-    def _node_sizes(self, metric_values: dict[str, float], graph: nx.Graph) -> list[float]:
-        values = [max(0.0, float(metric_values.get(node, 0.0))) for node in graph.nodes()]
+    def _node_sizes(
+        self, metric_values: dict[str, float], graph: nx.Graph
+    ) -> list[float]:
+        values = [
+            max(0.0, float(metric_values.get(node, 0.0))) for node in graph.nodes()
+        ]
         if not values:
             return []
 
         max_value = max(values)
-        if max_value <= 0:
-            return [700.0 for _ in values]
+        min_value = min(values)
 
-        return [300.0 + 1700.0 * (value / max_value) for value in values]
+        # If the selected metric is nearly flat, fall back to weighted node strength
+        # so the plot still reveals the network structure.
+        if max_value <= 0 or abs(max_value - min_value) < 1e-12:
+            values = [
+                sum(
+                    abs(d.get("weight", 0)) + d.get("count", 0)
+                    for _, _, d in graph.edges(node, data=True)
+                )
+                for node in graph.nodes()
+            ]
+            max_value = max(values) if values else 0.0
+            min_value = min(values) if values else 0.0
+
+        if max_value <= 0 or abs(max_value - min_value) < 1e-12:
+            return [50.0 for _ in values]
+
+        spread = max_value - min_value
+        return [
+            10.0 + 290.0 * (((value - min_value) / spread) ** 1.0) for value in values
+        ]
+
+    def _graph_layout(self, graph: nx.Graph) -> dict[str, tuple[float, float]]:
+        if len(graph) == 0:
+            return {}
+        import random
+
+        n = len(graph)
+        k = 1.6 / max(n**0.5, 1.0)
+
+        try:
+            pos = nx.spring_layout(
+                graph,
+                seed=42,
+                weight="count",
+                k=k,
+                iterations=500,
+                scale=1.0,
+            )
+        except Exception:
+            try:
+                pos = nx.kamada_kawai_layout(graph, weight="count")
+            except Exception:
+                pos = {node: (0.0, 0.0) for node in graph.nodes()}
+
+        jitter = 0.002
+        normalized_pos: dict[str, tuple[float, float]] = {}
+        for node, raw_xy in pos.items():
+            x = float(raw_xy[0])
+            y = float(raw_xy[1])
+            normalized_pos[str(node)] = (
+                x + random.uniform(-jitter, jitter),
+                y + random.uniform(-jitter, jitter),
+            )
+
+        return normalized_pos
 
     def calculate_metrics(self, adjacency_list: pd.DataFrame) -> GraphMetrics:
         config = get_config()
@@ -207,11 +267,40 @@ class GraphAnalyser:
         G = self._build_graph(adjacency_list)
         metric = self._node_metric_values(G, parameter)
         sizes = self._node_sizes(metric, G)
+        widths = [
+            0.3 + 0.8 * (d.get("count", 1) ** 0.5) for _, _, d in G.edges(data=True)
+        ]
 
-        pos = nx.spring_layout(G, seed=42)
-        plt.figure(figsize=(10, 8))
-        nx.draw_networkx_nodes(G, pos, node_size=sizes)
-        nx.draw_networkx_edges(G, pos, alpha=0.3)
+        # Cap sizes to avoid excessive overlap and ensure visibility for small nodes
+        sizes = [max(6.0, min(float(s), 200.0)) for s in sizes]
+
+        # compute layout (may be expensive for large graphs)
+        pos = self._graph_layout(G)
+        plt.figure(figsize=(12, 9))
+
+        # Draw edges first (beneath nodes) with reduced alpha and thin lines
+        edge_artist = nx.draw_networkx_edges(
+            G, pos, alpha=0.2, width=widths, edge_color="#666666"
+        )
+        try:
+            edge_artist.set_zorder(1)
+        except Exception:
+            pass
+
+        # Draw nodes on top, semi-transparent, with a thin border to separate overlapping points
+        node_artist = nx.draw_networkx_nodes(
+            G,
+            pos,
+            node_size=sizes,
+            alpha=0.75,
+            node_color="#1f77b4",
+            linewidths=0.25,
+            edgecolors="#222222",
+        )
+        try:
+            node_artist.set_zorder(2)
+        except Exception:
+            pass
         plt.axis("off")
 
         if filename is None:
@@ -219,6 +308,71 @@ class GraphAnalyser:
         out_path = out_dir / filename
         plt.savefig(out_path, dpi=200)
         plt.close()
+        return out_path
+
+    def export_pyvis_graph(
+        self,
+        adjacency_list: pd.DataFrame,
+        parameter: Literal[
+            "page_rank",
+            "betweeness",
+            "closeness",
+            "degree",
+            "absolute_relationshipscore",
+            "absolute_relationship_score",
+        ]
+        | None = "degree",
+        *,
+        filename: str | None = None,
+        largest_component_only: bool = False,
+    ) -> Path:
+        from pyvis.network import Network
+
+        config = get_config()
+        out_dir = Path(config.notebooks_directory) / "plots"
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        G = self._build_graph(adjacency_list)
+        if largest_component_only and len(G) > 0 and not nx.is_connected(G):
+            largest_cc = max(nx.connected_components(G), key=len)
+            G = G.subgraph(largest_cc).copy()
+
+        metric = self._node_metric_values(G, parameter)
+        metric_values = [float(metric.get(node, 0.0)) for node in G.nodes()]
+        max_metric = max(metric_values) if metric_values else 0.0
+
+        net = Network(height="850px", width="100%", notebook=False)
+        net.barnes_hut()
+
+        for node in G.nodes():
+            value = max(0.0, float(metric.get(node, 0.0)))
+            if max_metric > 0:
+                norm = value / max_metric
+            else:
+                norm = 0.0
+
+            size = 6.0 + 20.0 * norm
+            red = int(255 - 200 * norm)
+            color = f"rgb({red},120,150)"
+            degree = G.degree(node)
+
+            net.add_node(
+                str(node),
+                label=str(node),
+                title=f"{node}<br/>Degree: {degree}<br/>{parameter or 'degree'}: {value:.4f}",
+                size=size,
+                color=color,
+            )
+
+        for u, v, data in G.edges(data=True):
+            count = int(data.get("count", 1))
+            width = max(1.0, 0.8 + count**0.5)
+            net.add_edge(str(u), str(v), value=width, title=f"count={count}")
+
+        if filename is None:
+            filename = f"graph_vis_{parameter or 'degree'}.html"
+        out_path = out_dir / filename
+        net.write_html(str(out_path), notebook=False)
         return out_path
 
     def find_protagonists(
